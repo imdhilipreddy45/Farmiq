@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarmIQ - Login</title>
+  <style>
+    html {
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: url('https://static.vecteezy.com/system/resources/thumbnails/054/880/166/small_2x/thriving-tree-in-lush-green-environment-nature-conservation-and-protection-concept-free-photo.jpeg') no-repeat center top fixed;
+      background-size: cover;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .navbar {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(10, 30, 50, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 2px;
+      z-index: 2;
+    }
+
+    .navbar .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar ul li a:hover {
+      color: #aee1f9;
+    }
+
+    .navbar .login-btn {
+      padding: 8px 24px;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .navbar .login-btn:hover {
+      background: #fff;
+      color: #1a2a3a;
+    }
+
+    .login-modal {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      padding: 38px 28px;
+      max-width: 380px;
+      width: 100%;
+      margin-top: 60px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .login-modal h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #1a2a3a;
+    }
+
+    .input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 40px 12px 12px; /* added space for right-side icon */
+  border-radius: 8px;
+  border: 1px solid #bcd2e6;
+  font-size: 1rem;
+  background: #f7f8fa;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #1a2a3a;
+  box-shadow: 0 0 5px rgba(26, 42, 58, 0.3);
+}
+
+.input-group .icon {
+  position: absolute;
+  right: 12px; /* keep it inside */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #1a2a3a;
+  opacity: 0.7;
+  pointer-events: none; /* make sure icon doesn’t block input typing */
+}
+
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 0.98rem;
+      color: #1a2a3a;
+    }
+
+    .form-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.98rem;
+      color: #1a2a3a;
+    }
+
+    .form-row a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .form-row a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: #1a2a3a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 14px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-login:hover {
+      background: #4285f4;
+      transform: scale(1.02);
+    }
+
+    .register-row {
+      text-align: center;
+      font-size: 1rem;
+      color: #1a2a3a;
+      margin-top: 8px;
+    }
+
+    .register-row a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .register-row a:hover {
+      text-decoration: underline;
+    }
+
+    .error-msg {
+      color: #d93025;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">FarmIQ</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul> <button class="login-btn" onclick="window.location.href='/login'">Login</button>
+  </nav>
+  <div class="login-modal">
+    <h2>Login</h2> {% if error %} <div class="error-msg">{{ error }}</div> {% endif %} <form method="POST"
+      action="/login">
+      <div class="input-group"> <input type="text" name="email" placeholder="Email" aria-label="Email"> <span
+          class="icon">&#9993;</span> </div>
+      <div class="input-group"> <input type="tel" name="mobile" placeholder="Mobile Number" required
+          aria-label="Mobile Number" pattern="[0-9]{10}"> <span class="icon">&#128241;</span> </div>
+      <div class="input-group"> <input type="password" name="password" placeholder="Password" required
+          aria-label="Password"> <span class="icon">&#128274;</span> </div>
+      <div class="form-row"> <label><input type="checkbox" name="remember"> Remember me</label> <a href="#">Forgot
+          Password?</a> </div> <button type="submit" class="btn-login">Login</button>
+    </form>
+    <div class="register-row"> Don't have an account? <a href="/signup">Sign Up</a> </div>
+  </div>
+</body>
+
+</html>
